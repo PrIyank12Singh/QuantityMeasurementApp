@@ -1,5 +1,4 @@
 package com.example;
-
 public class QuantityMeasurementApp {
     private static final double EPSILON = 1e-6;
 
