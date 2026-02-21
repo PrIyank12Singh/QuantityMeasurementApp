@@ -9,7 +9,6 @@ import org.junit.jupiter.api.DisplayName;
 public class QuantityMeasurementAppTest {
     private static final double EPSILON = 1e-6;
 
-    // UC4: EQUALITY TEST CASES
     @Test
     @DisplayName("Given two feet measurements of 1.0, when compared, then should be equal")
     public void testEquality_SameValue() {
