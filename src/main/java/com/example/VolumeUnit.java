@@ -1,15 +1,14 @@
 package com.example;
 
-public enum LengthUnit implements Measurable {
-    FEET(1.0, "FEET"),
-    INCH(1.0 / 12.0, "INCH"),
-    YARD(3.0, "YARD"),
-    CENTIMETER((0.393701) / 12.0, "CENTIMETER");
+public enum VolumeUnit implements Measurable {
+    LITRE(1.0, "LITRE"),
+    MILLILITRE(0.001, "MILLILITRE"),
+    GALLON(3.78541, "GALLON");
 
     private final double conversionFactor;
     private final String unitName;
 
-    LengthUnit(double conversionFactor, String unitName) {
+    VolumeUnit(double conversionFactor, String unitName) {
         this.conversionFactor = conversionFactor;
         this.unitName = unitName;
     }
@@ -19,7 +18,7 @@ public enum LengthUnit implements Measurable {
         return conversionFactor;
     }
 
-    public double toFeetFactor() {
+    public double toLitreFactor() {
         return conversionFactor;
     }
 

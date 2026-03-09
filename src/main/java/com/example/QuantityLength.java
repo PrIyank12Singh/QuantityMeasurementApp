@@ -1,4 +1,5 @@
 package com.example;
+
 import java.util.Objects;
 
 public class QuantityLength {
@@ -16,7 +17,8 @@ public class QuantityLength {
 
     public QuantityLength convertTo(LengthUnit targetUnit) {
         Objects.requireNonNull(targetUnit, "Target unit must not be null.");
-        double convertedValue = convertValue(this.value, this.unit, targetUnit);
+        double valueInBaseUnit = unit.convertToBaseUnit(value);
+        double convertedValue = targetUnit.convertFromBaseUnit(valueInBaseUnit);
         return new QuantityLength(convertedValue, targetUnit);
     }
 
@@ -29,12 +31,27 @@ public class QuantityLength {
     }
 
     public double toFeet() {
-        return value * unit.toFeetFactor();
+        return unit.convertToBaseUnit(value);
     }
 
-    private static double convertValue(double sourceValue, LengthUnit sourceUnit, LengthUnit targetUnit) {
-        double valueInFeet = sourceValue * sourceUnit.toFeetFactor();
-        return valueInFeet / targetUnit.toFeetFactor();
+    public QuantityLength add(QuantityLength other, LengthUnit resultUnit) {
+        if (other == null) {
+            throw new IllegalArgumentException("Other length must not be null.");
+        }
+        if (resultUnit == null) {
+            throw new IllegalArgumentException("Result unit must not be null.");
+        }
+        
+        double thisFeet = this.toFeet();
+        double otherFeet = other.toFeet();
+        double sumFeet = thisFeet + otherFeet;
+        
+        double resultValue = resultUnit.convertFromBaseUnit(sumFeet);
+        return new QuantityLength(resultValue, resultUnit);
+    }
+
+    public QuantityLength add(QuantityLength other) {
+        return add(other, this.unit);
     }
 
     @Override
