@@ -1,5 +1,4 @@
 package com.example;
-
 public enum VolumeUnit implements Measurable {
     LITRE(1.0, "LITRE"),
     MILLILITRE(0.001, "MILLILITRE"),

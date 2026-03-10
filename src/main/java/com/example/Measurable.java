@@ -1,6 +1,5 @@
 package com.example;
 
-
 public interface Measurable {
  
     double getConversionFactor();
