@@ -124,6 +124,98 @@ public class QuantityMeasurementApp {
         System.out.printf("Adding %.2f %s + %.2f %s = %.6f %s%n", value1, unit1.getUnitName(), value2, unit2.getUnitName(), result, resultUnit.getUnitName());
     }
 
+    public static <U extends Measurable> Quantity<U> subtract(Quantity<U> quantity1, Quantity<U> quantity2) {
+        if (quantity1 == null) {
+            throw new IllegalArgumentException("First quantity must not be null.");
+        }
+        if (quantity2 == null) {
+            throw new IllegalArgumentException("Second quantity must not be null.");
+        }
+        
+        return quantity1.subtract(quantity2);
+    }
+
+    public static <U extends Measurable> Quantity<U> subtract(Quantity<U> quantity1, Quantity<U> quantity2, U resultUnit) {
+        if (quantity1 == null) {
+            throw new IllegalArgumentException("First quantity must not be null.");
+        }
+        if (quantity2 == null) {
+            throw new IllegalArgumentException("Second quantity must not be null.");
+        }
+        if (resultUnit == null) {
+            throw new IllegalArgumentException("Result unit must not be null.");
+        }
+        
+        return quantity1.subtract(quantity2, resultUnit);
+    }
+
+    public static <U extends Measurable> void demonstrateSubtraction(Quantity<U> quantity1, Quantity<U> quantity2) {
+        if (quantity1 == null || quantity2 == null) {
+            throw new IllegalArgumentException("Both quantities must not be null.");
+        }
+        
+        Quantity<U> result = quantity1.subtract(quantity2);
+        System.out.printf("Subtracting %s - %s = %s%n", quantity1, quantity2, result);
+    }
+
+    public static <U extends Measurable> void demonstrateSubtraction(Quantity<U> quantity1, Quantity<U> quantity2, U resultUnit) {
+        if (quantity1 == null || quantity2 == null) {
+            throw new IllegalArgumentException("Both quantities must not be null.");
+        }
+        if (resultUnit == null) {
+            throw new IllegalArgumentException("Result unit must not be null.");
+        }
+        
+        Quantity<U> result = quantity1.subtract(quantity2, resultUnit);
+        System.out.printf("Subtracting %s - %s = %s%n", quantity1, quantity2, result);
+    }
+
+    public static <U extends Measurable> Quantity<U> divide(Quantity<U> quantity1, Quantity<U> quantity2) {
+        if (quantity1 == null) {
+            throw new IllegalArgumentException("First quantity must not be null.");
+        }
+        if (quantity2 == null) {
+            throw new IllegalArgumentException("Second quantity must not be null.");
+        }
+        
+        return quantity1.divide(quantity2);
+    }
+
+    public static <U extends Measurable> Quantity<U> divide(Quantity<U> quantity1, Quantity<U> quantity2, U resultUnit) {
+        if (quantity1 == null) {
+            throw new IllegalArgumentException("First quantity must not be null.");
+        }
+        if (quantity2 == null) {
+            throw new IllegalArgumentException("Second quantity must not be null.");
+        }
+        if (resultUnit == null) {
+            throw new IllegalArgumentException("Result unit must not be null.");
+        }
+        
+        return quantity1.divide(quantity2, resultUnit);
+    }
+
+    public static <U extends Measurable> void demonstrateDivision(Quantity<U> quantity1, Quantity<U> quantity2) {
+        if (quantity1 == null || quantity2 == null) {
+            throw new IllegalArgumentException("Both quantities must not be null.");
+        }
+        
+        Quantity<U> result = quantity1.divide(quantity2);
+        System.out.printf("Dividing %s / %s = %s%n", quantity1, quantity2, result);
+    }
+
+    public static <U extends Measurable> void demonstrateDivision(Quantity<U> quantity1, Quantity<U> quantity2, U resultUnit) {
+        if (quantity1 == null || quantity2 == null) {
+            throw new IllegalArgumentException("Both quantities must not be null.");
+        }
+        if (resultUnit == null) {
+            throw new IllegalArgumentException("Result unit must not be null.");
+        }
+        
+        Quantity<U> result = quantity1.divide(quantity2, resultUnit);
+        System.out.printf("Dividing %s / %s = %s%n", quantity1, quantity2, result);
+    }
+
     // ===== BACKWARD COMPATIBILITY METHODS FOR LENGTH =====
     // These methods maintain API compatibility with UC1-UC8
 
@@ -244,24 +336,66 @@ public class QuantityMeasurementApp {
         return lb1.equals(lb2);
     }
 
+   
     
     public static void main(String[] args) {
         System.out.println("QUANTITY MEASUREMENT APPLICATION\n");
-
-        System.out.println("Weight:");
-        System.out.printf("1.0 KILOGRAM equals 1000.0 GRAM: %b%n", new Quantity<>(1.0, WeightUnit.KILOGRAM)
-            .equals(new Quantity<>(1000.0, WeightUnit.GRAM)));
-
-        System.out.println("\nLength:");
-        System.out.printf("1.0 FEET equals 12.0 INCH: %b%n", new Quantity<>(1.0, LengthUnit.FEET)
-            .equals(new Quantity<>(12.0, LengthUnit.INCH)));
-
-        System.out.println("\nVolume:");
-        System.out.printf("1.0 LITRE equals 1000.0 MILLILITRE: %b%n", new Quantity<>(1.0, VolumeUnit.LITRE)
-            .equals(new Quantity<>(1000.0, VolumeUnit.MILLILITRE)));
-
-        System.out.println("\nCross-category check:");
-        System.out.printf("1.0 LITRE equals 1.0 FEET: %b%n", new Quantity<>(1.0, VolumeUnit.LITRE)
-            .equals(new Quantity<>(1.0, LengthUnit.FEET)));
+     
+        // Length Operations
+        System.out.println("LENGTH OPERATIONS:");
+        Quantity<LengthUnit> feet5 = new Quantity<>(5.0, LengthUnit.FEET);
+        Quantity<LengthUnit> inches24 = new Quantity<>(24.0, LengthUnit.INCH);
+        
+        System.out.printf("  Created: %s and %s%n", feet5, inches24);
+        System.out.printf("  Base units: %.2f + %.2f %n", 
+            feet5.toBaseUnit(), inches24.toBaseUnit(), AirthmaticOperation.ADD);
+        System.out.printf("  Result: %s%n", feet5.add(inches24));
+        
+        System.out.printf("  Base units: %.2f - %.2f %n", 
+            feet5.toBaseUnit(), inches24.toBaseUnit(), AirthmaticOperation.SUBTRACT);
+        System.out.printf("  Result: %s%n", feet5.subtract(inches24));
+        
+        System.out.printf("  Base units: %.2f / %.2f %n", 
+            inches24.toBaseUnit(), feet5.toBaseUnit(), AirthmaticOperation.DIVIDE);
+        System.out.printf("  Result: %s%n", inches24.divide(feet5));
+        
+        // Weight Operations
+        System.out.println("\nWEIGHT OPERATIONS:");
+        Quantity<WeightUnit> kg3 = new Quantity<>(3.0, WeightUnit.KILOGRAM);
+        Quantity<WeightUnit> g500 = new Quantity<>(500.0, WeightUnit.GRAM);
+        
+        System.out.printf("  Created: %s and %s%n", kg3, g500);
+        System.out.printf("  Base units: %.2f + %.2f %n", 
+            kg3.toBaseUnit(), g500.toBaseUnit(), AirthmaticOperation.ADD);
+        System.out.printf("  Result: %s%n", kg3.add(g500));
+        
+        System.out.printf("  Base units: %.2f - %.2f %n", 
+            kg3.toBaseUnit(), g500.toBaseUnit(), AirthmaticOperation.SUBTRACT);
+        System.out.printf("  Result: %s%n", kg3.subtract(g500));
+        
+        System.out.printf("  Base units: %.2f / %.2f %n", 
+            kg3.toBaseUnit(), g500.toBaseUnit(), AirthmaticOperation.DIVIDE);
+        System.out.printf("  Result: %s%n", kg3.divide(g500));
+        
+        // Volume Operations
+        System.out.println("\nVOLUME OPERATIONS:");
+        Quantity<VolumeUnit> litre2 = new Quantity<>(2.0, VolumeUnit.LITRE);
+        Quantity<VolumeUnit> ml500 = new Quantity<>(500.0, VolumeUnit.MILLILITRE);
+        
+        System.out.printf("  Created: %s and %s%n", litre2, ml500);
+        System.out.printf("  Base units: %.2f + %.2f %n", 
+            litre2.toBaseUnit(), ml500.toBaseUnit(), AirthmaticOperation.ADD);
+        System.out.printf("  Result: %s%n", litre2.add(ml500));
+        
+        System.out.printf("  Base units: %.2f - %.2f %n", 
+            litre2.toBaseUnit(), ml500.toBaseUnit(), AirthmaticOperation.SUBTRACT);
+        System.out.printf("  Result: %s%n", litre2.subtract(ml500));
+        
+        System.out.printf("  Base units: %.2f / %.2f %n", 
+            litre2.toBaseUnit(), ml500.toBaseUnit(), AirthmaticOperation.DIVIDE);
+        System.out.printf("  Result: %s%n", litre2.divide(ml500));
+        
+       
+        
     }
 }

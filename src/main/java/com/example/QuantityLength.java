@@ -1,7 +1,6 @@
 package com.example;
 
 import java.util.Objects;
-
 public class QuantityLength {
     private static final double EPSILON = 1e-6;
     private final double value;
