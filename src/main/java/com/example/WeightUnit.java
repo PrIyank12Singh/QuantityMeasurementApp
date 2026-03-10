@@ -1,4 +1,5 @@
 package com.example;
+
 public enum WeightUnit implements Measurable {
     KILOGRAM(1.0, "KILOGRAM"),
     GRAM(0.001, "GRAM"),

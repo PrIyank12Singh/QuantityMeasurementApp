@@ -1,4 +1,5 @@
 package com.example;
+
 public enum LengthUnit implements Measurable {
     FEET(1.0, "FEET"),
     INCH(1.0 / 12.0, "INCH"),
