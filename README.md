@@ -1,174 +1,379 @@
-# 📌 Quantity Measurement Application
+#  Quantity Measurement Application
 
-## 🚀 Project Overview
+##  Project Overview
 
-This project demonstrates the **incremental evolution** of a Quantity Measurement system through three structured use cases:
+This project demonstrates the **incremental evolution** of a Quantity Measurement system through structured use cases:
 
-- 🟢 **UC1** – Equality comparison for *Feet*
-- 🟡 **UC2** – Equality comparison for *Feet and Inches*
-- 🔵 **UC3** – Generic, scalable `QuantityLength` with cross-unit comparison
+-  UC1 – Equality comparison for Feet  
+-  UC2 – Equality comparison for Feet and Inches  
+-  UC3 – Generic scalable design with cross-unit equality  
+-  UC4 – Added Yard and Centimeter support  
+-  UC5 – Robust conversion API  
+-  UC6 – Addition of quantities  
+-  UC7 – Explicit target unit addition 
+-  UC8 – Standalone unit enum with conversion responsibility
+-  UC9 – Weight measurement support
+-  UC10 – Generic Quantity class using interface
+-  UC11 – Volume measurement support
+-  UC12 – Subtraction and division operations
+-  UC13 – Centralized arithmetic logic (DRY enforcement)
+-  UC14 – Temperature measurement with special conversion logic 
 
 Each use case improves **design quality, scalability, and maintainability**.
 
 ---
 
-# 🟢 UC1 – Feet Measurement Equality
+#  Project Structure
+```
+QuantityMeasurementApp/
+│
+├── src/main/java/com/equality/
+|   ├── ArithmeticOperation.java
+│   ├── LengthUnit.java
+|   ├── Measurable.java
+│   ├── QuantityLength.java
+│   ├── QuantityMeasurementApp.java
+│   ├── TemperatureUnit.java
+│   ├── VolumeUnit.java
+|   └── WeightUnit.java
+│
+├── src/test/java/com/equality/
+│   └── QuantityMeasurementAppTest.java
+│
+└── pom.xml
+```
 
-## 🎯 Objective
-Implement equality comparison for a single measurement unit: **Feet**.
+--- 
 
-## 🏗 Implementation
-- Class: `Feet`
-- Field: `double value`
-- Overrides:
-  - `equals(Object obj)`
-  - `hashCode()`
+#  UC1 – Feet Equality
 
-### Equality Logic
-Double.compare(this.value, other.value) == 0
+##  Objective
+Support equality comparison for **Feet** only.
 
-
-## ✅ Features
-✔ Reflexive equality  
-✔ Symmetric equality  
-✔ Transitive equality  
-✔ Null safety  
-✔ Type safety  
-✔ Floating-point safe comparison  
+##  Features
+ Value-based equality  
+ Floating-point safe comparison  
+ Null & type safety  
 
 ## ⚠ Limitation
-❌ Supports only Feet  
-❌ Adding new units would cause duplication  
+ Only Feet supported  
+ Not scalable  
 
 ---
 
-# 🟡 UC2 – Feet and Inches Equality
+#  UC2 – Feet & Inches Equality
 
-## 🎯 Objective
-Extend UC1 to support **Inches** in addition to Feet.
+##  Objective
+Add support for **Inches**.
 
-## 🏗 Implementation
-- Class: `Feet`
-- Class: `Inches`
+##  Features
+ Same-unit equality  
+ Improved test coverage  
 
-Both classes:
-- Store a `double value`
-- Override `equals()`
-- Override `hashCode()`
-
-🚫 Cross-unit comparison is NOT supported.
-
-## ✅ Features
-✔ Equality within same unit  
-✔ Null safety  
-✔ Type safety  
-✔ Static comparison methods  
-✔ Improved test coverage  
-
-## ⚠ Design Issue
-
-Violates **DRY (Don't Repeat Yourself) Principle**:
-
-- Duplicate constructors  
-- Duplicate `equals()` logic  
-- Duplicate `hashCode()` logic  
-
-Not scalable for future units.
+##  Design Issue
+ Duplicate logic (violates DRY)  
+ No cross-unit comparison  
 
 ---
 
-# 🔵 UC3 – Generic QuantityLength (Refactored Design)
+#  UC3 – Generic QuantityLength
 
-## 🎯 Objective
-Refactor UC2 to:
-- Remove duplication  
-- Enable cross-unit equality  
-- Improve scalability  
+##  Objective
+Refactor to remove duplication and enable scalability.
 
----
+##  Implementation
+- `LengthUnit` enum (conversion factor to base unit)
+- `QuantityLength` class
 
-## 🏗 Implementation
-
-### 1️⃣ Enum: `LengthUnit`
-
-Defines conversion factors to base unit (Feet):
-
-FEET(1.0)
-INCH(1.0 / 12.0)
-
+##  Features
+ Cross-unit equality (1 ft = 12 in)  
+ DRY compliant  
+ Enum-based type safety  
+ Scalable architecture  
 
 ---
 
-### 2️⃣ Class: `QuantityLength`
+#  UC4 – Extended Unit Support
 
-Encapsulates:
-- `double value`
-- `LengthUnit unit`
+##  Objective
+Add more units without changing business logic.
 
-### 🔄 Equality Logic
+##  Added Units
+- YARD  
+- CENTIMETER  
 
-Both values are converted to base unit before comparison:
-
-Double.compare(this.toBaseUnit(), other.toBaseUnit()) == 0
-
-
----
-
-## ✅ Features
-
-✔ DRY Principle applied  
-✔ Cross-unit comparison (1 ft = 12 in)  
-✔ Enum-based type safety  
-✔ Conversion abstraction  
-✔ Scalable architecture  
-✔ Full equality contract compliance  
+##  Features
+ 1 yd = 3 ft  
+ 1 in = 2.54 cm  
+ No change in equality logic  
+ Open/Closed Principle followed  
 
 ---
 
-## 🧪 Example Comparisons
+#  UC5 – Conversion API
 
-| Comparison | Result |
-|------------|--------|
-| 1 ft vs 1 ft | ✅ true |
-| 1 inch vs 1 inch | ✅ true |
-| 1 ft vs 12 inch | ✅ true |
-| 1 ft vs 2 ft | ❌ false |
+##  Objective
+Provide a robust unit conversion feature.
 
----
-
-# 🔄 Evolution Summary
-
-| Feature | UC1 | UC2 | UC3 |
-|----------|------|------|------|
-| Feet support | ✅ | ✅ | ✅ |
-| Inches support | ❌ | ✅ | ✅ |
-| Cross-unit equality | ❌ | ❌ | ✅ |
-| DRY compliant | ❌ | ❌ | ✅ |
-| Scalable design | ❌ | ❌ | ✅ |
+##  Features
+ `convert(value, source, target)`  
+ Floating-point precision handling (EPSILON)  
+ Null & invalid input validation  
+ Round-trip conversion safe  
 
 ---
 
-# 📚 Concepts Covered
+#  UC6 – Quantity Addition
 
-- 📏 Object Equality Contract  
-- 🛡 Encapsulation  
-- 🔢 Floating-point comparison  
-- ♻ DRY Principle  
-- 🔄 Refactoring  
-- 🧩 Enum usage  
-- 🏗 Clean Architecture  
-- 📈 Scalable Design  
-- 🧠 Defensive Programming  
+##  Objective
+Support arithmetic operations.
+
+##  Features
+ Same-unit addition  
+ Cross-unit addition  
+ Negative value handling  
+ Commutative property  
+
+Example:
+
+1 ft + 12 in = 2 ft  
 
 ---
 
-# 🏆 Final Outcome
+#  UC7 – Explicit Target Unit Addition
 
-This project demonstrates how simple equality logic evolves into a **clean, maintainable, and scalable design** using proper refactoring techniques.
+##  Objective
+Allow addition result in **any specified unit**.
 
-It highlights the importance of:
+##  Example
 
-- Eliminating duplication  
-- Designing for scalability  
-- Writing testable code  
-- Following clean coding practices
+```java
+feet.add(inches, LengthUnit.YARD);
+```
+
+##  Features
+ Result in any unit  
+ No logic duplication  
+ Fully scalable  
+ Maintains precision  
+
+Example:
+
+1 ft + 12 in → 24 in  
+1 ft + 12 in → 0.67 yd  
+
+---
+
+#  UC8 – Standalone Unit Enum Refactoring
+
+##  Objective
+Refactor unit enums into standalone classes and assign them conversion responsibility.
+
+##  Features
+ Standalone LengthUnit enum  
+ Unit handles conversion logic  
+ Reduced coupling between unit and quantity classes  
+ Improved architecture scalability  
+
+Example:
+
+1 ft = 12 in  
+1 yd = 3 ft  
+
+---
+
+#  UC9 – Weight Measurement Support
+
+##  Objective
+Introduce support for weight measurement units.
+
+##  Units
+ Kilogram (base unit)  
+ Gram  
+ Pound  
+
+##  Features
+ Cross-unit equality comparison  
+ Weight unit conversion  
+ Arithmetic addition support  
+ Separation from length measurement  
+
+Example:
+
+1 kg = 1000 g  
+1 lb ≈ 0.453592 kg  
+
+---
+
+#  UC10 – Generic Quantity Class
+
+##  Objective
+Refactor the system to use a generic quantity class supporting multiple measurement categories.
+
+##  Implementation
+ Quantity<U extends Measurable>  
+ Measurable interface  
+
+##  Features
+ Single reusable quantity class  
+ Eliminates duplicate quantity classes  
+ Compile-time type safety  
+ Prevents cross-category comparison  
+
+Example:
+
+Quantity<LengthUnit>  
+Quantity<WeightUnit>  
+
+---
+
+#  UC11 – Volume Measurement Support
+
+##  Objective
+Extend the system to support volume measurement.
+
+##  Units
+ Litre (base unit)  
+ Millilitre  
+ Gallon  
+
+##  Features
+ Cross-unit equality  
+ Conversion support  
+ Addition support  
+ Reuses generic quantity class  
+
+Example:
+
+1 L = 1000 mL  
+1 gallon ≈ 3.78541 L  
+
+---
+
+#  UC12 – Subtraction and Division Operations
+
+##  Objective
+Extend arithmetic capabilities beyond addition.
+
+##  Features
+ Cross-unit subtraction  
+ Division ratio calculation  
+ Explicit target unit result support  
+ Input validation and error handling  
+
+Examples:
+
+5 ft − 24 in = 3 ft  
+3 kg − 500 g = 2.5 kg  
+
+Division example:
+
+10 kg ÷ 5 kg = 2  
+
+---
+
+#  UC13 – Centralized Arithmetic Logic
+
+##  Objective
+Refactor arithmetic operations to remove duplicated logic.
+
+##  Features
+ Centralized arithmetic helper method  
+ ArithmeticOperation enum  
+ DRY principle enforcement  
+ Consistent validation and conversion logic  
+
+Supported Operations:
+
+ Addition  
+ Subtraction  
+ Division  
+
+Example:
+
+performOperation(this, other, ArithmeticOperation.ADD)
+
+---
+
+#  UC14 – Temperature Measurement Support
+
+##  Objective
+Support temperature measurements with special conversion formulas.
+
+##  Units
+ Celsius  
+ Fahrenheit  
+ Kelvin  
+
+##  Features
+ Temperature equality comparison  
+ Temperature conversion support  
+ Special conversion formulas  
+ Arithmetic operations restricted  
+
+Examples:
+
+0°C = 32°F  
+0°C = 273.15K  
+
+Conversion formulas:
+
+F = (C × 9/5) + 32  
+C = (F − 32) × 5/9  
+K = C + 273.15  
+
+---
+
+#  Evolution Summary
+
+| Feature | UC1 | UC2 | UC3 | UC4 | UC5 | UC6 | UC7 | UC8 | UC9 | UC10 | UC11 | UC12 | UC13 | UC14 |
+|----------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|
+| Feet | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Inches | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Yard | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Centimeter | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Kilogram | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Gram | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Pound | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Litre | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| Millilitre | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| Gallon | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ |
+| Celsius | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Fahrenheit | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Kelvin | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Cross-unit equality | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Conversion API | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Addition | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+| Subtraction | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ |
+| Division | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ |
+| Target unit addition | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ |
+
+---
+
+#  Concepts Covered
+
+- Object Equality Contract  
+- DRY Principle  
+- Refactoring  
+- Enum Usage  
+- Generics and Type Safety  
+- Defensive Programming  
+- Floating-point Handling  
+- Clean Architecture  
+- Scalable System Design  
+
+---
+
+#  Final Outcome
+
+The system evolved from a simple equality check (UC1) into a **fully extensible quantity measurement framework (UC14)** supporting:
+
+✔ Equality comparison  
+✔ Unit conversion  
+✔ Arithmetic operations (addition, subtraction, division)  
+✔ Multiple measurement categories (length, weight, volume, temperature)  
+✔ Generic architecture using interfaces and generics  
+✔ Centralized arithmetic logic following DRY principle  
+✔ Production-ready scalable design  
+
+---
