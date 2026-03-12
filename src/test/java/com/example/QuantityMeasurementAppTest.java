@@ -4,6 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
+
+import com.equality.LengthUnit;
+import com.equality.Quantity;
+import com.equality.QuantityMeasurementApp;
+import com.equality.VolumeUnit;
+import com.equality.WeightUnit;
+
 import org.junit.jupiter.api.DisplayName;
 
 public class QuantityMeasurementAppTest {

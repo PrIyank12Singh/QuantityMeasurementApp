@@ -1,15 +1,15 @@
-package com.example;
+package com.equality;
 
-public enum WeightUnit implements Measurable {
-    KILOGRAM(1.0, "KILOGRAM"),
-    GRAM(0.001, "GRAM"),
-    POUND(0.453592, "POUND");
+public enum LengthUnit implements Measurable {
+    FEET(1.0, "FEET"),
+    INCH(1.0 / 12.0, "INCH"),
+    YARD(3.0, "YARD"),
+    CENTIMETER((0.393701) / 12.0, "CENTIMETER");
 
     private final double conversionFactor;
     private final String unitName;
-    
 
-    WeightUnit(double conversionFactor, String unitName) {
+    LengthUnit(double conversionFactor, String unitName) {
         this.conversionFactor = conversionFactor;
         this.unitName = unitName;
     }
@@ -19,7 +19,7 @@ public enum WeightUnit implements Measurable {
         return conversionFactor;
     }
 
-    public double toKilogramFactor() {
+    public double toFeetFactor() {
         return conversionFactor;
     }
 

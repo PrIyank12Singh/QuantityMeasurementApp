@@ -1,4 +1,4 @@
-package com.example;
+package com.equality;
 
 
 public interface Measurable {

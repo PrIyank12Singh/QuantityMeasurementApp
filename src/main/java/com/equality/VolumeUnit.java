@@ -1,4 +1,4 @@
-package com.example;
+package com.equality;
 
 public enum VolumeUnit implements Measurable {
     LITRE(1.0, "LITRE"),
