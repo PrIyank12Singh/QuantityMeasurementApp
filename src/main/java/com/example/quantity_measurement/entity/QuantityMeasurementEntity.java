@@ -1,17 +1,12 @@
 package com.example.quantity_measurement.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "quantity_measurement_entity")
+@Table(name = "quantity_measurement") // ✅ FIXED TABLE NAME
 public class QuantityMeasurementEntity {
 
     @Id
@@ -65,128 +60,130 @@ public class QuantityMeasurementEntity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    // Getters and Setters
+
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getOperationType() {
         return operationType;
     }
 
-    public void setOperationType(String operationType) {
-        this.operationType = operationType;
-    }
-
     public Double getFirstOperandValue() {
         return firstOperandValue;
-    }
-
-    public void setFirstOperandValue(Double firstOperandValue) {
-        this.firstOperandValue = firstOperandValue;
     }
 
     public String getFirstMeasurementType() {
         return firstMeasurementType;
     }
 
-    public void setFirstMeasurementType(String firstMeasurementType) {
-        this.firstMeasurementType = firstMeasurementType;
-    }
-
     public String getFirstUnit() {
         return firstUnit;
-    }
-
-    public void setFirstUnit(String firstUnit) {
-        this.firstUnit = firstUnit;
     }
 
     public Double getSecondOperandValue() {
         return secondOperandValue;
     }
 
-    public void setSecondOperandValue(Double secondOperandValue) {
-        this.secondOperandValue = secondOperandValue;
-    }
-
     public String getSecondMeasurementType() {
         return secondMeasurementType;
-    }
-
-    public void setSecondMeasurementType(String secondMeasurementType) {
-        this.secondMeasurementType = secondMeasurementType;
     }
 
     public String getSecondUnit() {
         return secondUnit;
     }
 
-    public void setSecondUnit(String secondUnit) {
-        this.secondUnit = secondUnit;
-    }
-
     public Double getResultOperandValue() {
         return resultOperandValue;
-    }
-
-    public void setResultOperandValue(Double resultOperandValue) {
-        this.resultOperandValue = resultOperandValue;
     }
 
     public String getResultMeasurementType() {
         return resultMeasurementType;
     }
 
-    public void setResultMeasurementType(String resultMeasurementType) {
-        this.resultMeasurementType = resultMeasurementType;
-    }
-
     public String getResultUnit() {
         return resultUnit;
-    }
-
-    public void setResultUnit(String resultUnit) {
-        this.resultUnit = resultUnit;
     }
 
     public Boolean getComparisonResult() {
         return comparisonResult;
     }
 
-    public void setComparisonResult(Boolean comparisonResult) {
-        this.comparisonResult = comparisonResult;
-    }
-
     public String getErrorMessage() {
         return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
     }
 
     public Boolean getSuccessful() {
         return successful;
     }
 
-    public void setSuccessful(Boolean successful) {
-        this.successful = successful;
-    }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setOperationType(String operationType) {
+        this.operationType = operationType;
+    }
+
+    public void setFirstOperandValue(Double firstOperandValue) {
+        this.firstOperandValue = firstOperandValue;
+    }
+
+    public void setFirstMeasurementType(String firstMeasurementType) {
+        this.firstMeasurementType = firstMeasurementType;
+    }
+
+    public void setFirstUnit(String firstUnit) {
+        this.firstUnit = firstUnit;
+    }
+
+    public void setSecondOperandValue(Double secondOperandValue) {
+        this.secondOperandValue = secondOperandValue;
+    }
+
+    public void setSecondMeasurementType(String secondMeasurementType) {
+        this.secondMeasurementType = secondMeasurementType;
+    }
+
+    public void setSecondUnit(String secondUnit) {
+        this.secondUnit = secondUnit;
+    }
+
+    public void setResultOperandValue(Double resultOperandValue) {
+        this.resultOperandValue = resultOperandValue;
+    }
+
+    public void setResultMeasurementType(String resultMeasurementType) {
+        this.resultMeasurementType = resultMeasurementType;
+    }
+
+    public void setResultUnit(String resultUnit) {
+        this.resultUnit = resultUnit;
+    }
+
+    public void setComparisonResult(Boolean comparisonResult) {
+        this.comparisonResult = comparisonResult;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public void setSuccessful(Boolean successful) {
+        this.successful = successful;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
