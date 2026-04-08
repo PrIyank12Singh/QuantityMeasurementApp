@@ -1,0 +1,7 @@
+[build]
+builder = "nixpacks"
+buildCommand = "mvn -B -DskipTests clean install"
+
+[deploy]
+startCommand = "java -jar target/quantity-measurement-app-1.0.0.jar"
+healthcheckPath = "/api/auth/ping"
