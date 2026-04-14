@@ -8,5 +8,6 @@ RUN mvn -B -DskipTests clean package
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /app/target/auth-service-1.0.0.jar app.jar
+COPY .env .env
 EXPOSE 8081
 ENTRYPOINT ["java", "-jar", "app.jar"]
