@@ -1,0 +1,63 @@
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:4200"
+              - "${ALLOWED_ORIGINS:http://localhost:4200}"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+      routes:
+        - id: auth-service
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/api/auth/**
+
+        - id: quantity-service-actuator
+          uri: lb://QUANTITY-SERVICE
+          predicates:
+            - Path=/api/quantity/actuator/**
+
+        - id: quantity-service
+          uri: lb://QUANTITY-SERVICE
+          predicates:
+            - Path=/api/quantity/**
+          filters:
+            - JwtAuthFilter
+
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+  instance:
+    prefer-ip-address: true
+
+server:
+  port: ${PORT:8080}
+
+app:
+  jwt:
+    secret: dGhpcy1pcy1hLXZlcnktc3Ryb25nLXNlY3JldC1rZXktZm9yLWp3dC1zaWduaW5n
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
