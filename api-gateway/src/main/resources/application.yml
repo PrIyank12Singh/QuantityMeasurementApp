@@ -25,7 +25,7 @@ spring:
 
       routes:
         - id: auth-service
-          uri: lb://AUTH-SERVICE
+          uri: ${AUTH_SERVICE_URL:lb://AUTH-SERVICE}
           predicates:
             - Path=/api/auth/**
           filters:
@@ -35,7 +35,7 @@ spring:
                 fallback: /fallback/auth
 
         - id: quantity-service-actuator
-          uri: lb://QUANTITY-SERVICE
+          uri: ${QUANTITY_SERVICE_URL:lb://QUANTITY-SERVICE}
           predicates:
             - Path=/api/quantity/actuator/**
           filters:
@@ -44,7 +44,7 @@ spring:
                 name: quantityActuatorCircuitBreaker
 
         - id: quantity-service
-          uri: lb://QUANTITY-SERVICE
+          uri: ${QUANTITY_SERVICE_URL:lb://QUANTITY-SERVICE}
           predicates:
             - Path=/api/quantity/**
           filters:
@@ -60,14 +60,14 @@ spring:
 
 eureka:
   client:
-    enabled: ${EUREKA_ENABLED:true}
+    enabled: ${EUREKA_ENABLED:false}
     service-url:
       defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
     registry-fetch-interval-seconds: 10
     instance-info-replication-interval-seconds: 30
     initial-instance-info-replication-interval-seconds: 40
-    fetch-registry: ${EUREKA_ENABLED:true}
-    register-with-eureka: ${EUREKA_ENABLED:true}
+    fetch-registry: ${EUREKA_ENABLED:false}
+    register-with-eureka: ${EUREKA_ENABLED:false}
     connect-timeout-ms: 5000
   instance:
     prefer-ip-address: true
