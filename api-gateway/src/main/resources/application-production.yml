@@ -21,10 +21,10 @@ spring:
               - "*"
             allowCredentials: true
       
-      # Direct backend URLs for production (no load balancer)
+      # Load balancer URIs for Eureka service discovery
       routes:
         - id: auth-service
-          uri: ${AUTH_SERVICE_URL:http://localhost:8081}
+          uri: lb://AUTH-SERVICE
           predicates:
             - Path=/api/auth/**
           filters:
@@ -33,7 +33,7 @@ spring:
                 name: authCircuitBreaker
 
         - id: quantity-service
-          uri: ${QUANTITY_SERVICE_URL:http://localhost:8082}
+          uri: lb://QUANTITY-SERVICE
           predicates:
             - Path=/api/quantity/**
           filters:
@@ -44,7 +44,7 @@ spring:
 
 eureka:
   client:
-    enabled: false
+    enabled: true
 
 server:
   port: ${PORT:8080}

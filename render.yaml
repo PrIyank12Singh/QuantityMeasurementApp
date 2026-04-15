@@ -13,11 +13,9 @@ services:
       - key: SPRING_PROFILES_ACTIVE
         value: production
       - key: EUREKA_ENABLED
-        value: "false"
-      - key: AUTH_SERVICE_URL
-        value: ""
-      - key: QUANTITY_SERVICE_URL
-        value: ""
+        value: "true"
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: https://your-discovery-service.onrender.com/eureka/
       - key: JWT_SECRET
         sync: false
       - key: GOOGLE_CLIENT_ID
@@ -37,7 +35,9 @@ services:
       - key: SPRING_PROFILES_ACTIVE
         value: production
       - key: EUREKA_ENABLED
-        value: "false"
+        value: "true"
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: https://your-discovery-service.onrender.com/eureka/
       - key: JWT_SECRET
         sync: false
       - key: GOOGLE_CLIENT_ID
@@ -57,4 +57,6 @@ services:
       - key: SPRING_PROFILES_ACTIVE
         value: production
       - key: EUREKA_ENABLED
-        value: "false"
+        value: "true"
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: https://your-discovery-service.onrender.com/eureka/
