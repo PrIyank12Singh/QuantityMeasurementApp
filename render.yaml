@@ -15,7 +15,7 @@ services:
       - key: EUREKA_ENABLED
         value: "true"
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-        value: https://your-discovery-service.onrender.com/eureka/
+        value: https://eureka.onrender.com/eureka/
       - key: JWT_SECRET
         sync: false
       - key: GOOGLE_CLIENT_ID
@@ -37,7 +37,7 @@ services:
       - key: EUREKA_ENABLED
         value: "true"
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-        value: https://your-discovery-service.onrender.com/eureka/
+        value: https://eureka.onrender.com/eureka/
       - key: JWT_SECRET
         sync: false
       - key: GOOGLE_CLIENT_ID
@@ -59,4 +59,4 @@ services:
       - key: EUREKA_ENABLED
         value: "true"
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-        value: https://your-discovery-service.onrender.com/eureka/
+        value: https://eureka.onrender.com/eureka/
