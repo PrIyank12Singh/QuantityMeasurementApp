@@ -4,7 +4,7 @@ services:
     env: docker
     dockerfilePath: ./api-gateway/Dockerfile
     healthCheckPath: /actuator/health
-    healthCheckTimeout: 30
+    healthCheckTimeout: 90
     autoDeploy: true
     environmentSlug: jar
     envVars:
@@ -26,7 +26,7 @@ services:
     env: docker
     dockerfilePath: ./auth-service/Dockerfile
     healthCheckPath: /api/auth/ping
-    healthCheckTimeout: 30
+    healthCheckTimeout: 90
     autoDeploy: true
     environmentSlug: jar
     envVars:
@@ -48,7 +48,7 @@ services:
     env: docker
     dockerfilePath: ./quantity-service/Dockerfile
     healthCheckPath: /api/quantity/actuator/health
-    healthCheckTimeout: 30
+    healthCheckTimeout: 90
     autoDeploy: true
     environmentSlug: jar
     envVars:

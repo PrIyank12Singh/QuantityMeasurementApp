@@ -54,6 +54,10 @@ spring:
                 name: quantityCircuitBreaker
                 fallback: /fallback/quantity
 
+    httpclient:
+      connect-timeout: 15000
+      response-timeout: 15000
+
     loadbalancer:
       ribbon:
         enabled: false
@@ -68,7 +72,7 @@ eureka:
     initial-instance-info-replication-interval-seconds: 40
     fetch-registry: ${EUREKA_ENABLED:false}
     register-with-eureka: ${EUREKA_ENABLED:false}
-    connect-timeout-ms: 5000
+    connect-timeout-ms: 15000
   instance:
     prefer-ip-address: true
     lease-renewal-interval-in-seconds: 10
@@ -146,10 +150,10 @@ resilience4j:
     instances:
       authCircuitBreaker:
         cancelRunningFuture: false
-        timeoutDuration: 10000
+        timeoutDuration: 60000
       quantityCircuitBreaker:
         cancelRunningFuture: false
-        timeoutDuration: 10000
+        timeoutDuration: 60000
       quantityActuatorCircuitBreaker:
         cancelRunningFuture: false
         timeoutDuration: 5000
