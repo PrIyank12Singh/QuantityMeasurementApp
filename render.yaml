@@ -14,6 +14,10 @@ services:
         value: production
       - key: EUREKA_ENABLED
         value: "false"
+      - key: AUTH_SERVICE_URL
+        value: ""
+      - key: QUANTITY_SERVICE_URL
+        value: ""
       - key: JWT_SECRET
         sync: false
       - key: GOOGLE_CLIENT_ID
