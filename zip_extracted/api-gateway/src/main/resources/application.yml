@@ -9,7 +9,7 @@ spring:
           '[/**]':
             allowedOrigins:
               - "http://localhost:4200"
-              - "https://quantity-measurement-app-frontend-topaz.vercel.app"
+              - "https://<YOUR_RENDER_FRONTEND_URL>"
               - "${ALLOWED_ORIGINS:http://localhost:4200}"
             allowedMethods:
               - GET
@@ -46,7 +46,7 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+      defaultZone: ${EUREKA_URL:http://<YOUR_RENDER_DISCOVERY_SERVICE_URL>/eureka/}
   instance:
     prefer-ip-address: true
 
