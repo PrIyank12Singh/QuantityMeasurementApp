@@ -21,10 +21,10 @@ spring:
               - "*"
             allowCredentials: true
       
-      # Load balancer URIs for Eureka service discovery
+      # Load balancer URIs for Eureka service discovery, with optional direct URL fallback
       routes:
         - id: auth-service
-          uri: lb://AUTH-SERVICE
+          uri: ${AUTH_SERVICE_URL:lb://AUTH-SERVICE}
           predicates:
             - Path=/api/auth/**
           filters:
@@ -33,7 +33,7 @@ spring:
                 name: authCircuitBreaker
 
         - id: quantity-service
-          uri: lb://QUANTITY-SERVICE
+          uri: ${QUANTITY_SERVICE_URL:lb://QUANTITY-SERVICE}
           predicates:
             - Path=/api/quantity/**
           filters:

@@ -66,7 +66,7 @@ eureka:
   client:
     enabled: ${EUREKA_ENABLED:false}
     service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+      defaultZone: ${EUREKA_URL:${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}}
     registry-fetch-interval-seconds: 10
     instance-info-replication-interval-seconds: 30
     initial-instance-info-replication-interval-seconds: 40
