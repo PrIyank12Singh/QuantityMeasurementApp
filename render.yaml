@@ -15,9 +15,13 @@ services:
       - key: EUREKA_ENABLED
         value: "true"
       - key: EUREKA_URL
-        value: https://eureka.onrender.com/eureka/
+        value: https://eurekaservice-qgjc.onrender.com/eureka/
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-        value: https://eureka.onrender.com/eureka/
+        value: https://eurekaservice-qgjc.onrender.com/eureka/
+      - key: AUTH_SERVICE_URL
+        value: https://authenticationservice-h3hj.onrender.com
+      - key: QUANTITY_SERVICE_URL
+        value: https://quantityservice-rb06.onrender.com
       - key: JWT_SECRET
         sync: false
       - key: GOOGLE_CLIENT_ID
@@ -39,9 +43,9 @@ services:
       - key: EUREKA_ENABLED
         value: "true"
       - key: EUREKA_URL
-        value: https://eureka.onrender.com/eureka/
+        value: https://eurekaservice-qgjc.onrender.com/eureka/
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-        value: https://eureka.onrender.com/eureka/
+        value: https://eurekaservice-qgjc.onrender.com/eureka/
       - key: JWT_SECRET
         sync: false
       - key: GOOGLE_CLIENT_ID
@@ -63,6 +67,6 @@ services:
       - key: EUREKA_ENABLED
         value: "true"
       - key: EUREKA_URL
-        value: https://eureka.onrender.com/eureka/
+        value: https://eurekaservice-qgjc.onrender.com/eureka/
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
-        value: https://eureka.onrender.com/eureka/
+        value: https://eurekaservice-qgjc.onrender.com/eureka/
