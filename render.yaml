@@ -13,7 +13,7 @@ services:
       - key: SPRING_PROFILES_ACTIVE
         value: production
       - key: EUREKA_ENABLED
-        value: "false"
+        value: "true"
       - key: EUREKA_URL
         value: https://eurekaservice-qgjc.onrender.com/eureka/
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
@@ -41,7 +41,7 @@ services:
       - key: SPRING_PROFILES_ACTIVE
         value: production
       - key: EUREKA_ENABLED
-        value: "false"
+        value: "true"
       - key: EUREKA_URL
         value: https://eurekaservice-qgjc.onrender.com/eureka/
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
@@ -65,7 +65,7 @@ services:
       - key: SPRING_PROFILES_ACTIVE
         value: production
       - key: EUREKA_ENABLED
-        value: "false"
+        value: "true"
       - key: EUREKA_URL
         value: https://eurekaservice-qgjc.onrender.com/eureka/
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
