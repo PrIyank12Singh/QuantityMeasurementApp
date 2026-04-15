@@ -8,7 +8,5 @@ RUN mvn -B -DskipTests clean package
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=build /app/target/quantity-service-1.0.0.jar app.jar
-# Make .env optional for cloud deployments
-COPY .env .env 2>/dev/null || true
 EXPOSE 8082
 ENTRYPOINT ["java", "-XX:+UseContainerSupport", "-XX:MaxRAMPercentage=75.0", "-jar", "app.jar"]
