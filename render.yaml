@@ -14,6 +14,8 @@ services:
         value: production
       - key: EUREKA_ENABLED
         value: "true"
+      - key: EUREKA_URL
+        value: https://eureka.onrender.com/eureka/
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: https://eureka.onrender.com/eureka/
       - key: JWT_SECRET
@@ -36,6 +38,8 @@ services:
         value: production
       - key: EUREKA_ENABLED
         value: "true"
+      - key: EUREKA_URL
+        value: https://eureka.onrender.com/eureka/
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: https://eureka.onrender.com/eureka/
       - key: JWT_SECRET
@@ -58,5 +62,7 @@ services:
         value: production
       - key: EUREKA_ENABLED
         value: "true"
+      - key: EUREKA_URL
+        value: https://eureka.onrender.com/eureka/
       - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
         value: https://eureka.onrender.com/eureka/
