@@ -10,7 +10,7 @@ spring:
         corsConfigurations:
           '[/**]':
             allowedOrigins:
-              - "https://quantity-measurement-app-frontend-topaz.vercel.app"
+              - "*"
             allowedMethods:
               - GET
               - POST
@@ -19,7 +19,7 @@ spring:
               - OPTIONS
             allowedHeaders:
               - "*"
-            allowCredentials: true
+            allowCredentials: false
       
       # Load balancer URIs for Eureka service discovery, with optional direct URL fallback
       routes:
@@ -44,7 +44,7 @@ spring:
 
 eureka:
   client:
-    enabled: true
+    enabled: false
 
 server:
   port: ${PORT:8080}
