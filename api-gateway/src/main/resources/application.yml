@@ -26,11 +26,20 @@ spring:
           uri: lb://AUTH-SERVICE
           predicates:
             - Path=/api/auth/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: authCircuitBreaker
+                fallback: /fallback/auth
 
         - id: quantity-service-actuator
           uri: lb://QUANTITY-SERVICE
           predicates:
             - Path=/api/quantity/actuator/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: quantityActuatorCircuitBreaker
 
         - id: quantity-service
           uri: lb://QUANTITY-SERVICE
@@ -38,6 +47,10 @@ spring:
             - Path=/api/quantity/**
           filters:
             - JwtAuthFilter
+            - name: CircuitBreaker
+              args:
+                name: quantityCircuitBreaker
+                fallback: /fallback/quantity
 
     loadbalancer:
       ribbon:
@@ -47,8 +60,13 @@ eureka:
   client:
     service-url:
       defaultZone: ${EUREKA_URL:http://localhost:8761/eureka/}
+    registry-fetch-interval-seconds: 10
+    instance-info-replication-interval-seconds: 30
+    initial-instance-info-replication-interval-seconds: 40
   instance:
     prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
 
 server:
   port: ${PORT:8080}
@@ -57,8 +75,75 @@ app:
   jwt:
     secret: dGhpcy1pcy1hLXZlcnktc3Ryb25nLXNlY3JldC1rZXktZm9yLWp3dC1zaWduaW5n
 
+# ── Response Headers & Security ────────────────────────────────────
+spring.cloud.gateway.filter.remove-hop-by-hop.headers: Connection,Keep-Alive,Proxy-Authenticate,Proxy-Authorization,TE,Trailers,Transfer-Encoding,Upgrade
+spring.cloud.gateway.globalcors.corsConfigurations['/**'].maxAge: 3600
+spring.cloud.gateway.globalcors.corsConfigurations['/**'].allowedHeaders: '*'
+
+# ── Custom Response Headers (COOP, Security, Performance) ──────────
+spring.cloud.gateway.default-filters:
+  - RemoveRequestHeader=Connection
+  - RemoveRequestHeader=Keep-Alive
+  - AddResponseHeader=Cross-Origin-Opener-Policy,same-origin-allow-popups
+  - AddResponseHeader=Cross-Origin-Embedder-Policy,require-corp
+  - AddResponseHeader=X-Content-Type-Options,nosniff
+  - AddResponseHeader=X-Frame-Options,DENY
+  - AddResponseHeader=X-XSS-Protection,1; mode=block
+  - AddResponseHeader=Cache-Control,no-cache,no-store,must-revalidate
+
+# ── Connection Pool & Timeouts ────────────────────────────────────
+spring.cloud.gateway.httpserver.wiretap: false
+spring.webflux.httpclient.connectTimeout: 5000
+spring.webflux.httpclient.pendingAcquireTimeout: 5000
+spring.webflux.httpclient.pendingAcquireMaxCount: -1
+spring.webflux.httpclient.maxLifeTime: 30000
+spring.webflux.httpclient.maxIdleTime: 30000
+
 management:
   endpoints:
     web:
       exposure:
         include: health,info
+
+# ── Circuit Breaker Configuration ──────────────────────────────────
+resilience4j:
+  circuitbreaker:
+    instances:
+      authCircuitBreaker:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5000
+        failureRateThreshold: 50
+        slowCallRateThreshold: 50
+        slowCallDurationThreshold: 6000
+      quantityCircuitBreaker:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 5000
+        failureRateThreshold: 50
+        slowCallRateThreshold: 50
+        slowCallDurationThreshold: 6000
+      quantityActuatorCircuitBreaker:
+        registerHealthIndicator: true
+        slidingWindowSize: 5
+        minimumNumberOfCalls: 3
+        waitDurationInOpenState: 2000
+        failureRateThreshold: 30
+
+  timelimiter:
+    instances:
+      authCircuitBreaker:
+        cancelRunningFuture: false
+        timeoutDuration: 10000
+      quantityCircuitBreaker:
+        cancelRunningFuture: false
+        timeoutDuration: 10000
+      quantityActuatorCircuitBreaker:
+        cancelRunningFuture: false
+        timeoutDuration: 5000

@@ -36,6 +36,12 @@ services:
     depends_on:
       discovery-service:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/api/auth/ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
     networks:
       - quantity-app-network
 
@@ -54,6 +60,12 @@ services:
     depends_on:
       discovery-service:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/api/quantity/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
     networks:
       - quantity-app-network
 
@@ -71,9 +83,15 @@ services:
       discovery-service:
         condition: service_healthy
       auth-service:
-        condition: service_started
+        condition: service_healthy
       quantity-service:
-        condition: service_started
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
     networks:
       - quantity-app-network
 
