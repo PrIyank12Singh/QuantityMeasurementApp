@@ -36,6 +36,11 @@ server:
 eureka:
   client:
     enabled: true
+  instance:
+    hostname: ${RENDER_EXTERNAL_HOSTNAME:localhost}
+    non-secure-port-enabled: false
+    secure-port-enabled: true
+    secure-port: 443
 
 app:
   jwt:
