@@ -12,7 +12,7 @@ spring:
             allowedOrigins:
               - "http://localhost:4200"
               - "https://quantity-measurement-app-frontend-topaz.vercel.app"
-              - "${ALLOWED_ORIGINS:http://localhost:4200}"
+            
             allowedMethods:
               - GET
               - POST
