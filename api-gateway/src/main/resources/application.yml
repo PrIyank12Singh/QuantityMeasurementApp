@@ -94,8 +94,8 @@ spring.cloud.gateway.globalcors.corsConfigurations['/**'].allowedHeaders: '*'
 spring.cloud.gateway.default-filters:
   - RemoveRequestHeader=Connection
   - RemoveRequestHeader=Keep-Alive
-  - AddResponseHeader=Cross-Origin-Opener-Policy,same-origin-allow-popups
-  - AddResponseHeader=Cross-Origin-Embedder-Policy,require-corp
+  - AddResponseHeader=Cross-Origin-Opener-Policy,same-unsafe-none
+  - AddResponseHeader=Cross-Origin-Embedder-Policy,unsafe-none
   - AddResponseHeader=X-Content-Type-Options,nosniff
   - AddResponseHeader=X-Frame-Options,DENY
   - AddResponseHeader=X-XSS-Protection,1; mode=block
